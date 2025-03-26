@@ -1,8 +1,8 @@
 import { useContractRead, useContractWrite, useWaitForTransaction } from 'wagmi';
 import MyrdalCoreABI from '../lib/contracts/MyrdalCore.abi.json';
 
-// コントラクトアドレスは実際のデプロイ後に更新する必要があります
-const CONTRACT_ADDRESS = '0x0000000000000000000000000000000000000000';
+
+const CONTRACT_ADDRESS = '0x1b3C5c635e7851098b82eD1e1Db406F6cF0Ba605';
 
 export function useMyrdalContract() {
   // タスク作成関数

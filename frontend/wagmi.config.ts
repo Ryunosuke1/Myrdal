@@ -4,7 +4,7 @@ import { metaMask } from "wagmi/connectors";
 
 export function getConfig() {
   return createConfig({
-    chains: [lineaSepolia, linea, mainnet],
+    chains: [lineaSepolia, linea, mainnet, sepolia],
     connectors: [metaMask()],
     ssr: true,
     storage: createStorage({

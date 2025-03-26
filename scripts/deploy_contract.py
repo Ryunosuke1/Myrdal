@@ -18,8 +18,8 @@ if not PRIVATE_KEY:
     raise ValueError("環境変数PRIVATE_KEYが設定されていません。.envファイルを確認してください。")
 
 # RPC URLの設定
-# Linea Testnet (Sepolia)
-LINEA_SEPOLIA_RPC_URL = "https://rpc.sepolia.linea.build"
+# Unichain Testnet (Sepolia)
+UNICHAIN_SEPOLIA_RPC_URL = "https://unichain-sepolia.drpc.org"
 # Linea Mainnet
 LINEA_MAINNET_RPC_URL = "https://rpc.linea.build"
 
@@ -29,7 +29,7 @@ NETWORK = "testnet"
 
 # ネットワークに応じたRPC URLを設定
 if NETWORK == "testnet":
-    RPC_URL = LINEA_SEPOLIA_RPC_URL
+    RPC_URL = UNICHAIN_SEPOLIA_RPC_URL
 else:
     RPC_URL = LINEA_MAINNET_RPC_URL
 
@@ -67,7 +67,7 @@ def deploy_contract():
     signed_txn = w3.eth.account.sign_transaction(transaction, PRIVATE_KEY)
     
     # トランザクションの送信
-    tx_hash = w3.eth.send_raw_transaction(signed_txn.rawTransaction)
+    tx_hash = w3.eth.send_raw_transaction(signed_txn.raw_transaction)
     print(f"トランザクションハッシュ: {tx_hash.hex()}")
     
     # トランザクションの完了を待機
