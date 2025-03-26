@@ -1,0 +1,30 @@
+<svg width="180" height="60" viewBox="0 0 180 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Myrdal - Nordic Style Logo -->
+  <defs>
+    <linearGradient id="nordic-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e5f8c"/> <!-- Nordic Blue -->
+      <stop offset="100%" stop-color="#2a6f62"/> <!-- Nordic Green -->
+    </linearGradient>
+  </defs>
+  <!-- Decorative Mountains Element -->
+  <path d="M20 35L30 25L40 35L50 20L60 30L70 25L80 35" 
+        stroke="url(#nordic-gradient)" 
+        stroke-width="3" 
+        fill="none" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+  
+  <!-- Myrdal Text -->
+  <text x="90" y="35" 
+        font-family="'Poppins', sans-serif" 
+        font-weight="600" 
+        font-size="24" 
+        fill="#1e3a5f">MYRDAL</text>
+  
+  <!-- AI Agent Text -->
+  <text x="92" y="48" 
+        font-family="'Poppins', sans-serif" 
+        font-weight="300" 
+        font-size="12" 
+        fill="#1e3a5f">ONCHAIN AI AGENT</text>
+</svg>

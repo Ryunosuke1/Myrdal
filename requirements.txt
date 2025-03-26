@@ -1,0 +1,15 @@
+openai
+openai-agents
+selenium
+webdriver-manager
+flask
+pydantic
+python-dotenv
+playwright
+chainlink-ea
+web3
+pytesseract
+pillow
+loguru
+requests
+aiohttp
