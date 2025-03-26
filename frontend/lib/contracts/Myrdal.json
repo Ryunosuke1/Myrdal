@@ -1,0 +1,1605 @@
+{
+  "abi": [
+    {
+      "name": "TaskCreated",
+      "inputs": [
+        {
+          "name": "task_id",
+          "type": "bytes32",
+          "indexed": false
+        },
+        {
+          "name": "creator",
+          "type": "address",
+          "indexed": false
+        },
+        {
+          "name": "prompt",
+          "type": "string",
+          "indexed": false
+        },
+        {
+          "name": "timestamp",
+          "type": "uint256",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "name": "TaskCompleted",
+      "inputs": [
+        {
+          "name": "task_id",
+          "type": "bytes32",
+          "indexed": false
+        },
+        {
+          "name": "result",
+          "type": "string",
+          "indexed": false
+        },
+        {
+          "name": "timestamp",
+          "type": "uint256",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "name": "TaskProcessing",
+      "inputs": [
+        {
+          "name": "task_id",
+          "type": "bytes32",
+          "indexed": false
+        },
+        {
+          "name": "status",
+          "type": "uint8",
+          "indexed": false
+        },
+        {
+          "name": "timestamp",
+          "type": "uint256",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "name": "MCPRequestCreated",
+      "inputs": [
+        {
+          "name": "request_id",
+          "type": "bytes32",
+          "indexed": false
+        },
+        {
+          "name": "task_id",
+          "type": "bytes32",
+          "indexed": false
+        },
+        {
+          "name": "action_type",
+          "type": "uint8",
+          "indexed": false
+        },
+        {
+          "name": "timestamp",
+          "type": "uint256",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "name": "MemoryStored",
+      "inputs": [
+        {
+          "name": "memory_id",
+          "type": "bytes32",
+          "indexed": false
+        },
+        {
+          "name": "task_id",
+          "type": "bytes32",
+          "indexed": false
+        },
+        {
+          "name": "timestamp",
+          "type": "uint256",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "name": "UserRegistered",
+      "inputs": [
+        {
+          "name": "user",
+          "type": "address",
+          "indexed": false
+        },
+        {
+          "name": "privacy_level",
+          "type": "uint8",
+          "indexed": false
+        },
+        {
+          "name": "timestamp",
+          "type": "uint256",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "name": "PrivacyLevelUpdated",
+      "inputs": [
+        {
+          "name": "user",
+          "type": "address",
+          "indexed": false
+        },
+        {
+          "name": "old_level",
+          "type": "uint8",
+          "indexed": false
+        },
+        {
+          "name": "new_level",
+          "type": "uint8",
+          "indexed": false
+        },
+        {
+          "name": "timestamp",
+          "type": "uint256",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "name": "UserDeactivated",
+      "inputs": [
+        {
+          "name": "user",
+          "type": "address",
+          "indexed": false
+        },
+        {
+          "name": "timestamp",
+          "type": "uint256",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "name": "UserReactivated",
+      "inputs": [
+        {
+          "name": "user",
+          "type": "address",
+          "indexed": false
+        },
+        {
+          "name": "timestamp",
+          "type": "uint256",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "name": "FundsAdded",
+      "inputs": [
+        {
+          "name": "user",
+          "type": "address",
+          "indexed": false
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "indexed": false
+        },
+        {
+          "name": "timestamp",
+          "type": "uint256",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "name": "FundsWithdrawn",
+      "inputs": [
+        {
+          "name": "user",
+          "type": "address",
+          "indexed": false
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "indexed": false
+        },
+        {
+          "name": "timestamp",
+          "type": "uint256",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "name": "OracleRequestCreated",
+      "inputs": [
+        {
+          "name": "request_id",
+          "type": "bytes32",
+          "indexed": false
+        },
+        {
+          "name": "task_id",
+          "type": "bytes32",
+          "indexed": false
+        },
+        {
+          "name": "timestamp",
+          "type": "uint256",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "name": "FileUploaded",
+      "inputs": [
+        {
+          "name": "task_id",
+          "type": "bytes32",
+          "indexed": false
+        },
+        {
+          "name": "file_hash",
+          "type": "bytes32",
+          "indexed": false
+        },
+        {
+          "name": "metadata",
+          "type": "string",
+          "indexed": false
+        },
+        {
+          "name": "uploader",
+          "type": "address",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "name": "FileAccessGranted",
+      "inputs": [
+        {
+          "name": "file_hash",
+          "type": "bytes32",
+          "indexed": false
+        },
+        {
+          "name": "user",
+          "type": "address",
+          "indexed": false
+        },
+        {
+          "name": "grantor",
+          "type": "address",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "create_task",
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "string"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "process_task",
+      "inputs": [
+        {
+          "name": "task_id",
+          "type": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "cancel_mcp_request",
+      "inputs": [
+        {
+          "name": "request_id",
+          "type": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "cancel_oracle_request",
+      "inputs": [
+        {
+          "name": "request_id",
+          "type": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "payable",
+      "type": "function",
+      "name": "add_funds",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "withdraw_funds",
+      "inputs": [
+        {
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "update_service_fee",
+      "inputs": [
+        {
+          "name": "new_fee",
+          "type": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "payable",
+      "type": "function",
+      "name": "withdraw_service_fees",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "register_user",
+      "inputs": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "email",
+          "type": "string"
+        },
+        {
+          "name": "privacy_level",
+          "type": "uint8"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "is_user_active",
+      "inputs": [
+        {
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "get_user_info",
+      "inputs": [
+        {
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "tuple",
+          "components": [
+            {
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "name": "address",
+              "type": "address"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "email",
+              "type": "string"
+            },
+            {
+              "name": "created_at",
+              "type": "uint256"
+            },
+            {
+              "name": "last_login",
+              "type": "uint256"
+            },
+            {
+              "name": "privacy_level",
+              "type": "uint8"
+            },
+            {
+              "name": "payment_balance",
+              "type": "uint256"
+            },
+            {
+              "name": "is_active",
+              "type": "bool"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "update_privacy_level",
+      "inputs": [
+        {
+          "name": "new_privacy_level",
+          "type": "uint8"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "deactivate_account",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "reactivate_account",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "complete_task",
+      "inputs": [
+        {
+          "name": "task_id",
+          "type": "bytes32"
+        },
+        {
+          "name": "result",
+          "type": "string"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "get_task",
+      "inputs": [
+        {
+          "name": "task_id",
+          "type": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "tuple",
+          "components": [
+            {
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "name": "creator",
+              "type": "address"
+            },
+            {
+              "name": "prompt",
+              "type": "string"
+            },
+            {
+              "name": "result",
+              "type": "string"
+            },
+            {
+              "name": "created_at",
+              "type": "uint256"
+            },
+            {
+              "name": "completed_at",
+              "type": "uint256"
+            },
+            {
+              "name": "status",
+              "type": "uint8"
+            },
+            {
+              "name": "mcp_requests",
+              "type": "bytes32[]"
+            },
+            {
+              "name": "memory_entries",
+              "type": "bytes32[]"
+            },
+            {
+              "name": "oracle_requests",
+              "type": "bytes32[]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "get_task_result",
+      "inputs": [
+        {
+          "name": "task_id",
+          "type": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "get_user_tasks",
+      "inputs": [
+        {
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "request_firefox_action",
+      "inputs": [
+        {
+          "name": "task_id",
+          "type": "bytes32"
+        },
+        {
+          "name": "action_data",
+          "type": "string"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "request_pyppeteer_action",
+      "inputs": [
+        {
+          "name": "task_id",
+          "type": "bytes32"
+        },
+        {
+          "name": "action_data",
+          "type": "string"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "complete_mcp_request",
+      "inputs": [
+        {
+          "name": "request_id",
+          "type": "bytes32"
+        },
+        {
+          "name": "result",
+          "type": "string"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "is_mcp_request_fulfilled",
+      "inputs": [
+        {
+          "name": "request_id",
+          "type": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "get_mcp_request_result",
+      "inputs": [
+        {
+          "name": "request_id",
+          "type": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "store_memory",
+      "inputs": [
+        {
+          "name": "content",
+          "type": "string"
+        },
+        {
+          "name": "tags",
+          "type": "string[]"
+        },
+        {
+          "name": "priority",
+          "type": "uint8"
+        },
+        {
+          "name": "encrypted",
+          "type": "bool"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "store_task_memory",
+      "inputs": [
+        {
+          "name": "task_id",
+          "type": "bytes32"
+        },
+        {
+          "name": "content",
+          "type": "string"
+        },
+        {
+          "name": "tags",
+          "type": "string[]"
+        },
+        {
+          "name": "priority",
+          "type": "uint8"
+        },
+        {
+          "name": "encrypted",
+          "type": "bool"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "get_memory",
+      "inputs": [
+        {
+          "name": "memory_id",
+          "type": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "tuple",
+          "components": [
+            {
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "name": "content",
+              "type": "string"
+            },
+            {
+              "name": "created_at",
+              "type": "uint256"
+            },
+            {
+              "name": "priority",
+              "type": "uint8"
+            },
+            {
+              "name": "tags",
+              "type": "string[]"
+            },
+            {
+              "name": "encrypted",
+              "type": "bool"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "search_memories_by_tag",
+      "inputs": [
+        {
+          "name": "tag",
+          "type": "string"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "search_memories_by_tags",
+      "inputs": [
+        {
+          "name": "tags",
+          "type": "string[]"
+        },
+        {
+          "name": "require_all",
+          "type": "bool"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "get_user_memories",
+      "inputs": [
+        {
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "delete_memory",
+      "inputs": [
+        {
+          "name": "memory_id",
+          "type": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "request_llm_completion",
+      "inputs": [
+        {
+          "name": "task_id",
+          "type": "bytes32"
+        },
+        {
+          "name": "prompt",
+          "type": "string"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "complete_oracle_request",
+      "inputs": [
+        {
+          "name": "request_id",
+          "type": "bytes32"
+        },
+        {
+          "name": "result",
+          "type": "string"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "is_oracle_request_fulfilled",
+      "inputs": [
+        {
+          "name": "request_id",
+          "type": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "get_oracle_request_result",
+      "inputs": [
+        {
+          "name": "request_id",
+          "type": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "set_mcp_oracle_address",
+      "inputs": [
+        {
+          "name": "new_address",
+          "type": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "pause",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "unpause",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "transfer_ownership",
+      "inputs": [
+        {
+          "name": "new_owner",
+          "type": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "add_fileverse_operator",
+      "inputs": [
+        {
+          "name": "operator",
+          "type": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "remove_fileverse_operator",
+      "inputs": [
+        {
+          "name": "operator",
+          "type": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "record_file_upload",
+      "inputs": [
+        {
+          "name": "task_id",
+          "type": "bytes32"
+        },
+        {
+          "name": "file_hash",
+          "type": "bytes32"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "mime_type",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "name": "grant_file_access",
+      "inputs": [
+        {
+          "name": "file_hash",
+          "type": "bytes32"
+        },
+        {
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "has_file_access",
+      "inputs": [
+        {
+          "name": "file_hash",
+          "type": "bytes32"
+        },
+        {
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "get_task_files",
+      "inputs": [
+        {
+          "name": "task_id",
+          "type": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "get_user_files",
+      "inputs": [
+        {
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "get_file_metadata",
+      "inputs": [
+        {
+          "name": "file_hash",
+          "type": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "owner",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "paused",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "task_count",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "mcp_request_count",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "memory_count",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "oracle_request_count",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "mcp_oracle_address",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "users",
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "tuple",
+          "components": [
+            {
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "name": "address",
+              "type": "address"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "email",
+              "type": "string"
+            },
+            {
+              "name": "created_at",
+              "type": "uint256"
+            },
+            {
+              "name": "last_login",
+              "type": "uint256"
+            },
+            {
+              "name": "privacy_level",
+              "type": "uint8"
+            },
+            {
+              "name": "payment_balance",
+              "type": "uint256"
+            },
+            {
+              "name": "is_active",
+              "type": "bool"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "user_addresses",
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "service_fee",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "fileverse_operators",
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "task_files",
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "bytes32"
+        },
+        {
+          "name": "arg1",
+          "type": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "file_metadata",
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "tuple",
+          "components": [
+            {
+              "name": "file_hash",
+              "type": "bytes32"
+            },
+            {
+              "name": "uploader",
+              "type": "address"
+            },
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "name": "mime_type",
+              "type": "string"
+            },
+            {
+              "name": "size",
+              "type": "uint256"
+            },
+            {
+              "name": "upload_timestamp",
+              "type": "uint256"
+            },
+            {
+              "name": "task_id",
+              "type": "bytes32"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "user_files",
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "address"
+        },
+        {
+          "name": "arg1",
+          "type": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ]
+    },
+    {
+      "stateMutability": "view",
+      "type": "function",
+      "name": "file_access",
+      "inputs": [
+        {
+          "name": "arg0",
+          "type": "bytes32"
+        },
+        {
+          "name": "arg1",
+          "type": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "constructor",
+      "inputs": [],
+      "outputs": []
+    }
+  ]
+}

@@ -1,211 +1,146 @@
 "use client";
-import Link from "next/link";
-import Image from "next/image";
-import { useAccount, useConnect, useDisconnect, useSwitchChain } from "wagmi";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { formatAddress } from "@/lib/utils";
-import { ChevronDown, MessageSquare, History, Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
 
-export function Navbar() {
-  const { address, isConnected, chain } = useAccount();
-  const { connect, connectors } = useConnect();
-  const { disconnect } = useDisconnect();
-  const { switchChain, chains } = useSwitchChain();
-  const connector = connectors[0];
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
-  // スクロールを検出してナビゲーションの背景を変更
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
-    };
-    
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrolled]);
+import { ConnectWallet } from './ConnectWallet';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useState } from 'react';
+
+export const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   return (
-    <nav 
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 vy-animate-fade-in ${
-        scrolled ? "bg-white/90 backdrop-blur-sm shadow-sm" : "bg-transparent"
-      }`}
-    >
+    <nav className="bg-white shadow-sm border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          {/* ロゴ */}
+        <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center gap-2">
-              <Image
-                src="/myrdal-logo.svg"
-                alt="Myrdal Logo"
-                width={150}
-                height={50}
-                priority
-                className="h-10 w-auto"
-              />
-            </Link>
-          </div>
-          
-          {/* デスクトップメニュー */}
-          <div className="hidden md:flex items-center gap-8">
-            <Link 
-              href="/chat" 
-              className="flex items-center gap-2 text-foreground hover:text-primary transition-colors duration-200 font-medium"
-            >
-              <MessageSquare className="h-5 w-5" />
-              <span>チャット</span>
-            </Link>
-            <Link 
-              href="/history" 
-              className="flex items-center gap-2 text-foreground hover:text-primary transition-colors duration-200 font-medium"
-            >
-              <History className="h-5 w-5" />
-              <span>履歴</span>
-            </Link>
-          </div>
-          
-          {/* ウォレット接続ボタン */}
-          <div className="hidden md:block">
-            {isConnected ? (
-              <div className="flex items-center gap-3">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="bg-white/90 text-primary px-4 py-2 rounded-lg font-medium border border-muted flex items-center gap-1 shadow-sm hover:bg-white transition-colors duration-200">
-                    {chain?.name.split(" ").slice(0, 2).join(" ")} <ChevronDown className="h-4 w-4 ml-1" />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-full justify-center rounded-md shadow-md border border-muted">
-                    {chains.map(
-                      (c) =>
-                        c.id !== chain?.id && (
-                          <DropdownMenuItem
-                            key={c.id}
-                            onClick={() => switchChain({ chainId: c.id })}
-                            className="cursor-pointer w-full flex justify-center font-medium hover:bg-muted"
-                          >
-                            {c.name}
-                          </DropdownMenuItem>
-                        )
-                    )}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="bg-gradient-to-r from-primary to-primary/90 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-1 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5">
-                    {formatAddress(address)} <ChevronDown className="h-4 w-4 ml-1" />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-full flex justify-center rounded-md shadow-md border border-muted">
-                    <DropdownMenuItem
-                      onClick={() => disconnect()}
-                      className="text-destructive cursor-pointer w-full flex justify-center font-medium hover:bg-muted"
-                    >
-                      切断する
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            ) : (
-              <button
-                onClick={() => connect({ connector })}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-primary/90 text-white px-6 py-2.5 rounded-lg font-medium shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
-              >
-                <Image 
-                  src="/metamask-logo.svg"
-                  alt="MetaMask"
-                  width={20}
-                  height={20}
-                  className="w-5 h-5"
+            {/* ロゴ */}
+            <Link href="/" className="flex-shrink-0 flex items-center">
+              <div className="w-10 h-10 relative mr-2">
+                <Image
+                  src="/logo.svg"
+                  alt="Myrdal Logo"
+                  fill
+                  className="object-contain"
                 />
-                ウォレットを接続
-              </button>
-            )}
+              </div>
+              <span className="text-xl font-semibold text-gray-900">Myrdal</span>
+            </Link>
+            
+            {/* デスクトップナビゲーション */}
+            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+              <Link 
+                href="/"
+                className="border-primary text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              >
+                ホーム
+              </Link>
+              <Link 
+                href="/tasks"
+                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              >
+                タスク
+              </Link>
+              <Link 
+                href="/about"
+                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              >
+                Myrdalについて
+              </Link>
+            </div>
+          </div>
+          
+          {/* 右側のアクション */}
+          <div className="hidden sm:ml-6 sm:flex sm:items-center">
+            <ConnectWallet />
           </div>
           
           {/* モバイルメニューボタン */}
-          <div className="md:hidden">
+          <div className="flex items-center sm:hidden">
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="bg-white p-2 rounded-full shadow-sm text-foreground focus:outline-none"
+              type="button"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+              aria-expanded="false"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {mobileMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
+              <span className="sr-only">メニューを開く</span>
+              {/* アイコン */}
+              <svg
+                className={`${isMenuOpen ? 'hidden' : 'block'} h-6 w-6`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+              <svg
+                className={`${isMenuOpen ? 'block' : 'hidden'} h-6 w-6`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
             </button>
           </div>
         </div>
       </div>
       
       {/* モバイルメニュー */}
-      <div className={`md:hidden ${mobileMenuOpen ? 'block' : 'hidden'} bg-white shadow-lg rounded-b-2xl`}>
-        <div className="px-4 pt-2 pb-4 space-y-1">
+      <div className={`${isMenuOpen ? 'block' : 'hidden'} sm:hidden`}>
+        <div className="pt-2 pb-3 space-y-1">
           <Link
-            href="/chat"
-            className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors duration-200"
-            onClick={() => setMobileMenuOpen(false)}
+            href="/"
+            className="bg-primary-50 border-primary text-primary block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
           >
-            <MessageSquare className="h-5 w-5 text-primary" />
-            <span className="font-medium">チャット</span>
+            ホーム
           </Link>
           <Link
-            href="/history"
-            className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors duration-200"
-            onClick={() => setMobileMenuOpen(false)}
+            href="/tasks"
+            className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
           >
-            <History className="h-5 w-5 text-primary" />
-            <span className="font-medium">履歴</span>
+            タスク
           </Link>
-          
-          {isConnected ? (
-            <div className="p-3 space-y-3">
-              <div className="flex items-center justify-between p-2 bg-muted rounded-lg">
-                <span className="text-sm text-muted-foreground">ネットワーク:</span>
-                <span className="font-medium">{chain?.name.split(" ").slice(0, 2).join(" ")}</span>
+          <Link
+            href="/about"
+            className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+          >
+            Myrdalについて
+          </Link>
+        </div>
+        <div className="pt-4 pb-3 border-t border-gray-200">
+          <div className="flex items-center px-4">
+            <div className="flex-shrink-0">
+              <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
+                <svg className="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
               </div>
-              <div className="flex items-center justify-between p-2 bg-muted rounded-lg">
-                <span className="text-sm text-muted-foreground">アドレス:</span>
-                <span className="font-medium">{formatAddress(address)}</span>
-              </div>
-              <button
-                onClick={() => {
-                  disconnect();
-                  setMobileMenuOpen(false);
-                }}
-                className="w-full p-2 text-center bg-white border border-destructive text-destructive rounded-lg font-medium"
-              >
-                切断する
-              </button>
             </div>
-          ) : (
-            <button
-              onClick={() => {
-                connect({ connector });
-                setMobileMenuOpen(false);
-              }}
-              className="w-full mt-2 flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-primary/90 text-white p-3 rounded-lg font-medium"
-            >
-              <Image 
-                src="/metamask-logo.svg"
-                alt="MetaMask"
-                width={20}
-                height={20}
-              />
-              ウォレットを接続
-            </button>
-          )}
+            <div className="ml-3">
+              <div className="text-base font-medium text-gray-800">ウォレット接続</div>
+            </div>
+          </div>
+          <div className="mt-3 space-y-1">
+            <div className="px-4 py-2">
+              <ConnectWallet />
+            </div>
+          </div>
         </div>
       </div>
     </nav>
   );
-}
+};

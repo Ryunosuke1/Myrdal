@@ -1,9 +1,8 @@
-openai
-openai-agents
-selenium
-webdriver-manager
-flask
-pydantic
+web3==6.15.1
+vyper==0.4.1
+python-dotenv==1.0.0
+eth-account==0.10.0
+eth-utils==2.3.1
 python-dotenv
 playwright
 chainlink-ea
